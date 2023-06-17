@@ -122,3 +122,6 @@ Docker 镜像是怎么实现增量的修改和维护的？
 Docker 在 AUFS 上构建的容器也是利用了类似的原理。
  
 `
+export const post = {
+  '20sasd02k8asdasd0': content
+}

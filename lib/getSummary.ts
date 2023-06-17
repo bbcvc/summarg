@@ -1,7 +1,12 @@
-import { content } from "@/mock";
 import { OpenAI, PromptTemplate } from "langchain";
 import { AnalyzeDocumentChain, loadSummarizationChain } from "langchain/chains"
 import removeMarkdown from "remove-markdown"
+import Redis from "ioredis"
+
+let redisClient:Redis
+if (process.env.REDIS_URL) {
+ redisClient = new Redis(process.env.REDIS_URL!)
+}
 
 const model = new OpenAI({
   openAIApiKey: process.env.OPENAI_API_KEY,
@@ -10,7 +15,15 @@ const model = new OpenAI({
   maxTokens: 400,
 })
 
-export async function getSummarg(lang = 'zh') {
+export async function getSummarg(post: Record<string, string> , lang = 'zh') {
+  const id = Object.keys(post)[0]
+  const content = Object.values(post)[0]
+
+  let res = await redisClient.get(id)
+  if (res) {
+    return res
+  }
+
   const prompt = new PromptTemplate({
     template: `Summarize this in "${lang}" language:
         "{text}"
@@ -28,11 +41,15 @@ export async function getSummarg(lang = 'zh') {
     combineDocumentsChain: combineDocsChain,
   })
 
-  const res = await chain.call({
+  const data = await chain.call({
     input_document: removeMarkdown(content, {
       useImgAltText: true,
       gfm: true,
     }),
   })
+
+  res = data.text || '错误'
+  await redisClient.set(id, res!);
+
   return res
 }
