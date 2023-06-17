@@ -17,7 +17,7 @@ export default function Home() {
       <h1>原文</h1>
       {JSON.stringify(content)}
       <h1>总结后</h1>
-      {JSON.stringify(data.data)}
+      {JSON.stringify(data?.data)}
     </main>
   )
 }
