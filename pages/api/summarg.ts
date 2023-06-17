@@ -4,7 +4,7 @@ import { post } from '@/mock'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  data: string
 }
 
 export default async function handler(
@@ -13,5 +13,5 @@ export default async function handler(
 ) {
   const data = await getSummarg(post)
 
-  res.status(200).json({ name: data!})
+  res.status(200).json({ data: data!})
 }
