@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import useSWR from 'swr'
 import hash from 'object-hash'
 import { ChangeEvent, useState } from 'react';
 
@@ -8,13 +7,18 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const [content, setContent] = useState<string>('')
+  const [originPost, setOriginPost] = useState('')
+  const [res, setRes] = useState('')
   // 获取路由信息
   const slug = 'cl'
 
-  const { data, isLoading } = useSWR('api/summarg', (url) => {
-    return fetch(url, {
+
+  const getSummarg = async (content: string) => {
+    const response = await fetch('api/summarg', {
       method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
       body: JSON.stringify(
         {
           hashKey: hash({ slug, content }),
@@ -23,7 +27,9 @@ export default function Home() {
         }
       )
     })
-  })
+    const { data } = await response.json()
+    setRes(data)
+  }
 
   function onChange(event: ChangeEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
@@ -32,7 +38,8 @@ export default function Home() {
     reader.onload = function (event) {
       // 文件里的文本会在这里被打印出来
       const txt = event?.target?.result
-      setContent(txt as string)
+      setOriginPost(txt as string)
+      getSummarg(txt as string)
     };
     reader.readAsText(file!);
   }
@@ -47,9 +54,9 @@ export default function Home() {
       >
         <h2 className='pb-3 text-xl'>原文</h2>
         <input type='file' onChange={(e) => onChange(e)} />
-        {JSON.stringify(content)}
+        {originPost}
         <h2 className='py-3 text-xl'>总结后</h2>
-        {isLoading ? <h1>loading...</h1> : <div>{JSON.stringify(data?.data)}</div>}
+        <div>{res}</div>
       </main>
     </div>
   )
