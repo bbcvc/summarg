@@ -51,7 +51,7 @@ async function cacheData(slug: string, dbQuery: () => Promise<string | null>): P
   // 如果缓存中没有数据，则从数据库中查询数据
   console.log(`Cache miss for key "${slug}"`);
   const dbResult = await dbQuery();
-  console.log(`db miss for key "${slug}"`);
+  dbResult && console.log(`db hit for key "${slug}"`);
 
   // 将查询结果写入缓存
   dbResult && redisClient.set(slug, dbResult, 'EX', 60 * 60 * 24); // 设置缓存有效期为 1 天
