@@ -8,7 +8,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
 
-  const { data } = useSWR('api/summarg', fetcher)
+  const { data, isLoading } = useSWR('api/summarg', fetcher)
 
   return (
     <main
@@ -17,7 +17,7 @@ export default function Home() {
       <h1>原文</h1>
       {JSON.stringify(content)}
       <h1>总结后</h1>
-      {JSON.stringify(data?.data)}
+      {isLoading ? <h1>loading...</h1> : <div>{JSON.stringify(data?.data)}</div>}
     </main>
   )
 }
