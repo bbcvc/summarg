@@ -45,14 +45,14 @@ export default function Home() {
   }
 
   return (
-    <div className='p-6 min-h-screen '>
+    <div className='p-6 min-h-screen'>
       <div className='text-2xl text-center pb-6'>
         <h1>基于langchain的文章总结，langchain + nestjs + ioredis(upstash) + PostgreSQL(supabase) + tailwindcss</h1>
       </div>
       <main
-        className={`flex flex-row items-start pb-6 ${inter.className}`}
+        className={`flex flex-row items-start pb-6 max-w-[1600px] m-auto ${inter.className}`}
       >
-        <div className='w-[50%] pr-2'>
+        <div className='w-[86%] pr-2'>
           <h2 className='pb-3 text-xl'>原文</h2>
           <input type='file' onChange={(e) => onChange(e)} />
           <pre className='bg-slate-200 p-5 w-full overflow-y-auto'>
