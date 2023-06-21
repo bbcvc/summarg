@@ -54,7 +54,9 @@ export default function Home() {
       >
         <h2 className='pb-3 text-xl'>原文</h2>
         <input type='file' onChange={(e) => onChange(e)} />
-        {originPost}
+        <pre>
+          {originPost}
+        </pre>
         <h2 className='py-3 text-xl'>总结后</h2>
         <div>{res}</div>
       </main>
