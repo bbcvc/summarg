@@ -50,15 +50,19 @@ export default function Home() {
         <h1>基于langchain的文章总结，langchain + nestjs + ioredis(upstash) + PostgreSQL(supabase) + tailwindcss</h1>
       </div>
       <main
-        className={`flex flex-col items-center pb-6 ${inter.className}`}
+        className={`flex flex-row items-start pb-6 ${inter.className}`}
       >
-        <h2 className='pb-3 text-xl'>原文</h2>
-        <input type='file' onChange={(e) => onChange(e)} />
-        <pre className='bg-slate-200 p-5 w-full overflow-y-auto'>
-          {originPost}
-        </pre>
-        <h2 className='py-3 text-xl'>总结后</h2>
-        <div>{res}</div>
+        <div className='w-[50%] pr-2'>
+          <h2 className='pb-3 text-xl'>原文</h2>
+          <input type='file' onChange={(e) => onChange(e)} />
+          <pre className='bg-slate-200 p-5 w-full overflow-y-auto'>
+            {originPost}
+          </pre>
+        </div>
+        <div className='w-[50%]'>
+          <h2 className='py-3 text-xl'>总结后</h2>
+          <div className='bg-slate-200 p-5'>{res}</div>
+        </div>
       </main>
     </div>
   )
