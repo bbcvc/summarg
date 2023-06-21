@@ -27,6 +27,6 @@ export const post = {
 }
 
 export const post1 = {
-  slug: '20sasd02k8asdasd2dd0123asdasd12',
+  slug: '20sasd02k8asd222sdasd2dd0123asdasd12',
   content
 }
