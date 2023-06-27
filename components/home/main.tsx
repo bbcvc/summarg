@@ -14,7 +14,7 @@ export default function Main() {
           <div className="flex justify-center">
             <Link
               className="inline-flex items-center px-5 py-3 mt-2 font-medium text-white transition duration-500 ease-in-out transform bg-transparent border rounded-lg bg-gray-900"
-              href="https://github.com/r1/ai-2/"
+              href="./playground"
             >
               <span className="justify-center">Quick Start</span>
             </Link>
